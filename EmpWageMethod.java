@@ -1,17 +1,31 @@
 public class EmpWageMethod {
+         //CONSTANTS
         public static final int IS_PART_TIME=1;
         public static final int IS_FULL_TIME=2;
 
-        public static int calcEmpWageForCompany(String company,int empRate,int numOfDays,int maxHrs) {
-                //VARIABLES
+        private final String company;
+        private final int empRatePerHour;
+        private final int numOfWorkingDays;
+        private final int maxHoursPerMonth;
+
+        public EmpWageMethod(String company,int empRatePerHour,int numOfWorkingDays,int maxHoursPerMonth) {
+                this.company=company;
+                this.empRatePerHour=empRatePerHour;
+                this.numOfWorkingDays=numOfWorkingDays;
+                this.maxHoursPerMonth=maxHoursPerMonth;
+        }
+
+        private int computeEmpWage() {
+                 //variables
 
                 int empHrs=0;
                 int totalWorkingDays=0;
                 int totalEmpHrs=0;
+
                 //COMPUTATION
-                while (totalEmpHrs <= maxHrs && totalWorkingDays < numOfDays) {
-                        int empCheck= (int) Math.floor(Math.random()*10) %3;
+                while (totalEmpHrs <= maxHoursPerMonth && totalWorkingDays < numOfWorkingDays) {
                         totalWorkingDays++;
+                        int empCheck= (int) Math.floor(Math.random()*10) %3;
                         switch(empCheck) {
                                 case  IS_FULL_TIME:
                                         empHrs=8;
@@ -25,12 +39,13 @@ public class EmpWageMethod {
                 totalEmpHrs += empHrs;
                 System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs);
                 }
-                int totalEmpWage=totalEmpHrs * empRate;
-                System.out.println("Total Emp Wage for Company : " +company+ " is : " +totalEmpWage);
-                return totalEmpWage;
+                return totalEmpHrs * empRatePerHour;
         }
+
         public static void main(String[] args) {
-                calcEmpWageForCompany("DMart",20,2,10);
-                calcEmpWageForCompany("Reliance",10,4,20);
+                EmpWageMethod dMart = new EmpWageMethod("DMart", 20, 2, 10);
+                EmpWageMethod bigBasket = new EmpWageMethod("Bigbasket", 30, 2, 20);
+                System.out.println("Total Emp wage for company: " + dMart.company + " is: " + dMart.computeEmpWage());
+                System.out.println("Total Emp wage for company: " + bigBasket.company + " is: " +bigBasket.computeEmpWage());
         }
 }
