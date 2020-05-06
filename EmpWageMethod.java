@@ -1,25 +1,22 @@
+import java.util.*;
 public class EmpWageMethod {
     //CONSTANTS
     public static final int IS_PART_TIME=1;
     public static final int IS_FULL_TIME=2;
 
     private int numOfCompany=0;
-    public CompanyEmpWage[] companyEmpWageArray;
-
-    public EmpWageMethod() {
-        companyEmpWageArray =new CompanyEmpWage[5];
-
-    }
+    private ArrayList<CompanyEmpWage> companyEmpWageArrayList=new ArrayList<CompanyEmpWage>();
 
     private void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDay,int maxHoursPerMonth) {
-        companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company,empRatePerHour,numOfWorkingDay,maxHoursPerMonth);
+        CompanyEmpWage companyEmpWageData  = new CompanyEmpWage(company,empRatePerHour,numOfWorkingDay,maxHoursPerMonth);
+        companyEmpWageArrayList.add(companyEmpWageData);
         numOfCompany++;
     }
 
     public void computeEmpWage() {
         for ( int i = 0; i < numOfCompany; i++) {
-            int totalEmpWage = this.computeEmpWage(companyEmpWageArray[i]);
-            System.out.println(" Total Emp Wage For Company " +companyEmpWageArray[i].company + " is: " +totalEmpWage);
+            int totalEmpWage = this.computeEmpWage(companyEmpWageArrayList.get(i));
+            System.out.println(" Total Emp Wage For Company " +companyEmpWageArrayList.get(i).company + " is: " +totalEmpWage);
         }
     }
 
@@ -47,12 +44,12 @@ public class EmpWageMethod {
             totalEmpHrs += empHrs;
             System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs);
         }
-        return totalEmpHrs= (totalEmpHrs * companyEmpWage.empRatePerHour);
+        return totalEmpHrs * companyEmpWage.empRatePerHour;
     }
 
     public static void main(String[] args) {
 
-        EmpWageMethod empWageMethod =new EmpWageMethod();
+        EmpWageMethod empWageMethod=new EmpWageMethod();
         empWageMethod.addCompanyEmpWage( "DMart", 20, 20, 10);
         empWageMethod.addCompanyEmpWage( "BigBasket", 30, 20, 20);
         empWageMethod.computeEmpWage();
@@ -70,6 +67,5 @@ public class EmpWageMethod {
             this.numOfWorkingDays=numOfWorkingDays;
             this.maxHoursPerMonth=maxHoursPerMonth;
         }
-    }
-
+   }
 }
