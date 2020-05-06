@@ -42,8 +42,9 @@ public class EmpWageMethod {
                     empHrs=0;
             }
             totalEmpHrs += empHrs;
-            System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs);
-        }
+            int dailyWage=companyEmpWage.empRatePerHour*empHrs;
+                      System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs+ "Daily Wage : " +dailyWage);
+          }
         return totalEmpHrs * companyEmpWage.empRatePerHour;
     }
 
